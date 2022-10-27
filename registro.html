@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/bootstrap.js"></script>
+  <script src="js/parcial.js"></script>
+  <script src="https://kit.fontawesome.com/b375149b8e.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="css/parcial.css">
+  <title>INSCRIPCION</title>
+</head>
+
+<body onload="listar();" background="img/Mesa de trabajo 1.jpg">
+
+    <div class="registro">
+    <div class="col-auto text-center"></div>      
+    <h1 class="text2">REGISTRO</h1>
+    
+    <div>
+        <label for="name" class="text form-label">Categorías:</label>
+        <select class="text3 form-select" aria-label="Default select example" id="categoria" required>
+        <option selected="" disabled=""></option>
+        <option value="Individual">Individual</option>
+        <option value="Corporativo">Corporativo</option>        
+      </select>
+    </div>
+
+
+        <div class="row gx-5">
+    <div class="col">
+        <label for="name" class="text form-label">Nombres:</label>
+        <input type="text" class="text3 form-control" id="name" placeholder="Nombres" required>
+    </div>
+
+    <div class="col">
+        <label for="lastname" class="text form-label">Apellidos:</label>
+        <input type="text" class="text3 form-control" id="lastname" placeholder="Apellidos" required>
+    </div>
+
+    </div>
+
+
+    <div>
+        <label for="email" class="text form-label">Correo electrónico:</label>
+        <input type="email" class="text3 form-control" id="email" placeholder="nombre@ejemplo.com" required>
+    </div>
+
+    <div>
+        <input class="form-check-input" type="checkbox" id="info" required>
+        <label class="text1 form-check-label" for="info">Acepta recibir publicidad o información de la empresa</label>
+    </div>
+    
+    <br>
+    <div class="row gx-5">
+
+    <div class="col">
+        <label for="passwd" class="text form-label">Contraseña:</label>
+    <div class="input-group">
+        <input id="passwd" type="password" class="text3 form-control"  placeholder="*******" required>
+        <div class="input-group-append">
+            <button id="show_password" class="btn btn-primary"  onclick="mostrarPassword()" required>VER</button>
+        </div>
+    </div>
+    </div>
+    
+    <div class="col">
+        <label for="passwd" class="text form-label">Confirmar contraseña:</label>
+    <div class="input-group">
+        <input id="passwd1" type="password" class="text3 form-control"  placeholder="*******" required>
+        <div class="input-group-append">
+            <button id="show_password" class="btn btn-primary"  onclick="Password()" required>VER</button>
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+    <br>
+    <div>
+        <input class="form-check-input" type="checkbox" id="terminos" required>
+        <label class="text1 form-check-label" for="terminos">Acepta los términos de servicio</label>
+    </div>
+    
+    <br>
+    <button class="text1 btn btn-primary" onclick="guadar_localStorage();listar();">INGRESAR</button>
+
+</div>
+</div>
+
+
+
+
+    <br />
+    <br />
+
+    <div class="text4 alert alert-primary" role="alert">Listado de registros</div>
+
+    <table class="table table-primary">
+        <thead>
+        <tr class="table-active">
+            <th scope="col" class="text5">Categoría</th>
+            <th scope="col" class="text5">Nombres</th>
+            <th scope="col" class="text5">Apellidos</th>
+            <th scope="col" class="text5">Email</th>
+            <th scope="col" class="text5">Información</th>
+            <th scope="col" class="text5">Términos</th>
+            <th scope="col" class="text5">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody id="listarclave">
+
+    </tbody>
+    </table>
+
+
+
+</body>
+<script>
+
+  function guadar_localStorage() {
+    var categoria = document.getElementById("categoria").value;
+    var name = document.getElementById("name").value;
+    var lastname = document.getElementById("lastname").value;
+    var email = document.getElementById("email").value;
+    var passwd = document.getElementById("passwd").value;
+    var info = document.getElementById("info").checked;
+    var terminos = document.getElementById("terminos").checked;
+
+    const registro_uusario = {
+      categoria:categoria,
+      name: name,
+      lastname: lastname,
+      email: email,
+      passwd: passwd,
+      info: info,
+      terminos: terminos,
+    };
+
+    if (
+      window.localStorage.getItem('r-' + email) !== undefined &&
+      window.localStorage.getItem('r-' + email)
+    ) {
+
+      Swal.fire({
+        icon: "error",
+        title: "Su informacion ha sido registrada",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+    } else {
+
+      if (name == "" || lastname == "" || email == "" || passwd == "" || terminos != true) {
+        Swal.fire({
+          icon: "error",
+          title: "Ingrese sus datos",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then((result) => {
+          setTimeout(function () {
+            if (document.getElementById('name')) {
+              document.getElementById('name').focus();
+            }
+          }, 1);
+        });
+
+      } else {
+        localStorage.setItem('r-' + email, JSON.stringify(registro_uusario));
+        categoria = document.getElementById("categoria").tabIndex = 0;
+        name = document.getElementById("name").value = "";
+        lastname = document.getElementById("lastname").value = "";
+        email = document.getElementById("email").value = "";
+        passwd = document.getElementById("passwd").value = "";
+        info = document.getElementById("info").checked = false;
+        terminos = document.getElementById("terminos").checked = false;
+
+        Swal.fire({
+          icon: "success",
+          title: "Almacenado Correctamente",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+      }
+    }
+  }
+
+
+  function listar() {
+
+    document.getElementById('listarclave').innerHTML = "";
+
+    for (x = 0, len = localStorage.length; x < len; x++) {
+      clave = localStorage.key(x);
+      if (clave.startsWith('r-')) {
+        value = localStorage[clave];
+        var data = JSON.parse(value);
+
+        var ele = document.getElementById('listarclave');
+        var tr = document.createElement('tr');
+        ele.appendChild(tr);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.categoria);
+        td.appendChild(txt);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.name);
+        td.appendChild(txt);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.lastname);
+        td.appendChild(txt);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.email);
+        td.appendChild(txt);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.info);
+        td.appendChild(txt);
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var txt = document.createTextNode(data.terminos);
+        td.appendChild(txt);
+
+
+
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        var a = document.createElement('a')
+        td.appendChild(a);
+        var linktext = document.createTextNode("🗑");
+        a.appendChild(linktext);
+        a.title = "Eliminar";
+        a.href = "javascript:eliminar(" + "'" + clave + "'" + ");";
+        a.id = "Eliminar";
+      }
+    }
+  }
+
+  function eliminar(keyeliminar) {
+
+    Swal.fire({
+      title: 'Desea eliminar este registró?',
+      text: "Este registro será eliminado permanentemente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.localStorage.removeItem(keyeliminar);
+        listar();
+        Swal.fire(
+          'Eliminado!',
+          'Registro fue eliminado con éxito.',
+          'success'
+        )
+      }
+    })
+
+  }
+
+</script>
+
+</html>

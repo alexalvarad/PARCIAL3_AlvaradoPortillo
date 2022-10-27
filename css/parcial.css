@@ -1,0 +1,78 @@
+@font-face {
+   font-family: Abril Fatface;
+   src: url(AbrilFatface-Regular.ttf);
+}
+
+/* fondo */
+body{
+    background-repeat : no-repeat;
+    background-size: cover;
+    position : center;
+    background-attachment: fixed;
+ }
+ 
+  /* caja */
+ .registro{
+       background : #1B1464;
+       background : rgba(27, 20, 100, 1);
+       position : center ;
+       width : 600px;
+       height : 550px;
+       padding: 10px;
+       background-attachment: fixed;
+       margin: 60px 800px;
+       }
+
+ .text{
+       color: white;
+       padding: 5px;
+       font-family : Abril Fatface;
+       font-size : 18px;
+ 
+ }
+ 
+ .text1{
+    color: white;
+    font-family : Abril Fatface;
+    font-size : 15px;
+ }
+ 
+ .boton{
+    color: white;
+    font-family : Abril Fatface;
+    font-size : 15px;
+ }
+ 
+ .text2{
+    color: white;
+    font-family : Abril Fatface;
+    font-size : 25px;
+    text-align: center;
+    padding: -5px;
+ }
+ 
+ .botonc{
+    margin: 10% 35%;
+ }
+ 
+ .pp{
+    margin-left: 50px;
+ }
+ 
+ .text3{
+    font-family : Abril Fatface;
+    font-size : 15px;
+ }
+
+ .text4{
+    color: #1B1464;
+    font-family : Abril Fatface;
+    font-size : 25px;
+    text-align: center;
+    padding: -5px;
+ }
+
+ .text5{
+      color: #1B1464;
+      font-family : Abril Fatface;
+ }
